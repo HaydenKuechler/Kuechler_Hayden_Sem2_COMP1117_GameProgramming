@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInputHandler), typeof(Rigidbody2D))]
-public class PlayerControllerr : Character
+public class Player : Character
 {
 
     //Jumping logic
@@ -27,31 +27,42 @@ public class PlayerControllerr : Character
         rbody = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInputHandler>();
 
+
     }
 
     private void Update()
     {
         // Perform ground check 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundlayer);
-        Debug.Log(isGrounded);
-    }
+       Debug.Log(isGrounded);
 
-    void FixedUpdate()
-    {
-        if (IsDead)
+        anim.SetFloat("xVelocity", Mathf.Abs(rbody.linearVelocity.x));
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetFloat("yVelocity", rbody.linearVelocity.y);
+
+
+        //Handle sprite flippig 
+        if (input.MoveInput.x != 0)
         {
-            return;
+            transform.localScale = new Vector3(Mathf.Sign(input.MoveInput.x), 1, 1);
         }
-
-        HandleMovment();
-        HandleJump();
-
-        //Handle movement 
-        //Jumping
-        //Mario like falling 
-
-
     }
+
+        void FixedUpdate()
+        {
+            if (IsDead)
+            {
+                return;
+            }
+
+            HandleMovment();
+            HandleJump();
+
+            //Handle movement 
+            //Jumping
+            //Mario like falling 
+        }
+    
 
     private void HandleMovment()
     {
