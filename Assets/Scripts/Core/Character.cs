@@ -6,7 +6,7 @@ public class Character : MonoBehaviour
     //Private variables 
 
     [Header("Character Stats")]
-    [SerializeField] private float moveSpeed = 5.0f;
+    [SerializeField] protected float moveSpeed = 2.0f;
     [SerializeField] private int maxHealth =100;
 
     private int currentHealth;

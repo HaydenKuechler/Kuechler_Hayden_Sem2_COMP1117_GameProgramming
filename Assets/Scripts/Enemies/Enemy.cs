@@ -1,14 +1,13 @@
 
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Enemy: Character 
 {
   [Header("Enemy Settings")]
-  [SerializeField] private float patrolDistance = 5.0f;
+  [SerializeField] protected float patrolDistance = 5.0f;
 
-    private Vector2 startPos;
-    private int direction = -1;
+    public Vector2 startPos;
+    public int direction = -1;
     protected override void Awake()
     {
         base.Awake();
