@@ -18,6 +18,7 @@ public class Player : Character
     private Rigidbody2D rbody;                   //Used to aplly force to move or jump 
     private PlayerInputHandler input;            //Reads the input 
     private bool isGrounded;                     // Holds the result of the ground check operation 
+    private float currentSpeedModifier = 1f;
 
     //Start is called before the first frame update
     protected override void Awake()
@@ -42,7 +43,7 @@ public class Player : Character
 
 
         //Handle sprite flippig 
-        if (input.MoveInput.x != 0)
+        if (input.MoveInput.x != 0 && !isDead)
         {
             transform.localScale = new Vector3(Mathf.Sign(input.MoveInput.x), 1, 1);
         }
@@ -68,9 +69,11 @@ public class Player : Character
     {
         //We get input from input handler 
         // We get Move speed from our Parent class 
-        float horizontalvelocity = input.MoveInput.x * MoveSpeed;
+        float horizontalvelocity = input.MoveInput.x * MoveSpeed * currentSpeedModifier;
 
         rbody.linearVelocity = new Vector2(horizontalvelocity, rbody.linearVelocity.y);
+
+        currentSpeedModifier = 1f;
     }
 
     private void HandleJump()
@@ -84,10 +87,17 @@ public class Player : Character
         rbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
+    public void ApplySpeedModifier(float speedModifier)
+    {
+        currentSpeedModifier = speedModifier;
+    }
+    
 
-     
-
-       
-
+    //Starts player specific death sequence 
+    public override void Die()
+    {
+        isDead = true;
+        Debug.Log("Payer has Died");
+    }
         
 }

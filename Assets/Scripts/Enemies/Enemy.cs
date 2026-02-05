@@ -37,4 +37,14 @@ public class Enemy: Character
             transform.localScale = new Vector3(-1, 1, 1);
         }
     }
+
+    //Enemy specific death sequence starts 
+    public override void Die()
+    {
+        Debug.Log("Enemy is Dead");
+    }
+    // Award points 
+    // Dop loot 
+    // Play death annimation 
+    // Detroy game object 
 }

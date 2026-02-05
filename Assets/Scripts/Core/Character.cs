@@ -1,29 +1,29 @@
 using Unity.VisualScripting;
 using UnityEngine;
 [RequireComponent(typeof(Animator))]
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
     //Private variables 
 
     [Header("Character Stats")]
     [SerializeField] protected float moveSpeed = 2.0f;
-    [SerializeField] private int maxHealth =100;
+    [SerializeField] private int maxHealth = 100;
 
     private int currentHealth;
 
-    private bool isDead = false;
+    protected bool isDead = false;
     protected Animator anim;
     //Public properties 
     public float MoveSpeed
     {
         //Read Only, player can't interact with this 
-        get { return moveSpeed; }   
+        get { return moveSpeed; }
     }
 
     public bool IsDead
-    { 
+    {
         // Read Only
-        get { return isDead; } 
+        get { return isDead; }
     }
 
     protected int CurrentHealth
@@ -56,11 +56,9 @@ public class Character : MonoBehaviour
         }
     }
 
-    protected void Die()
-    {
-        isDead = true;
-        Debug.Log($"{gameObject.name} has died");
-    }
+    //Each child will define how thier own game object dies
+    public abstract void Die();
 
+   
 
 }
