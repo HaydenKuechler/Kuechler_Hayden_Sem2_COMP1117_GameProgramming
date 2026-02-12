@@ -12,7 +12,7 @@ public class Enemy: Character
     {
         base.Awake();
 
-        Debug.Log("Awake in enemy.cs");
+        //Debug.Log("Awake in enemy.cs");
 
         startPos = transform.position;
     }
